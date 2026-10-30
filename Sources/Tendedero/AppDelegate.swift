@@ -55,7 +55,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         restoreSettingsOnTermination()
         startWatcher()
 
-        hotKey = HotKey(keyCode: kVK_ANSI_T, modifiers: controlKey | optionKey) { [weak self] in
+        // Personal build: ⇧⌘2 instead of upstream's ⌃⌥T, reachable with the
+        // left hand.
+        hotKey = HotKey(keyCode: kVK_ANSI_2, modifiers: cmdKey | shiftKey) { [weak self] in
             self?.toggle()
         }
 
@@ -480,8 +482,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate {
         let toggleItem = ClosureMenuItem(isRevealed ? L("Hide line") : L("Show line")) { [weak self] in
             self?.toggle()
         }
-        toggleItem.keyEquivalent = "t"
-        toggleItem.keyEquivalentModifierMask = [.control, .option]
+        toggleItem.keyEquivalent = "2"
+        toggleItem.keyEquivalentModifierMask = [.command, .shift]
         menu.addItem(toggleItem)
 
         let clearItem = ClosureMenuItem(L("Take everything down")) { [weak self] in
